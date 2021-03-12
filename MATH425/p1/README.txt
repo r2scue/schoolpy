@@ -4,6 +4,8 @@ Step 1) Download and install Python 3 on device https://www.python.org/downloads
 
 Step 2) Download code (p1.py p2.py p3.py) from https://github.com/r2scue/schoolpy/blob/main/MATH425/p1/p2.py
 
+	Install numpy, matplotlib (open source)
+
 Step 3) Open Terminal application (CMD + Space to search apps)
 
 Step 4) In terminal, change to directory (folder) containing p1, p2, and p3 python files
@@ -24,8 +26,8 @@ Step 5) To compile and run:
 
 Using PyCharm on Windows
 
-Step 1) Download and install PyCharm CE from https://www.jetbrains.com/pycharm/download/
+Step 1) Download and install PyCharm from https://www.jetbrains.com/pycharm/download/
 
 Step 2) Do Step 2 from MacOS instructions
 
-Step 3) Install
+Step 3) Open and run p1.py p2.py p3.py in PyCharm (with numpy and matplotlib included in interpreter configuration)
