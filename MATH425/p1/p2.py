@@ -49,7 +49,7 @@ def y_hat(t):
 y_e = y_hat(t)
 
 print('Least squares estimate for velocity when t = 4.5:\n', 
-		y_hat(4.5), '\n', sep='')
+		(beta[1] + 2*beta[2]*(4.5) + 3*beta[3]*(4.5**2)), '\n', sep='')
 
 fig = plt.figure()
 ax = plt.axes()
@@ -75,7 +75,7 @@ def y_w_hat(t):
 y_w_e = y_w_hat(t)
 
 print('Weighted least squares estimate for velocity when t = 4.5:\n', 
-		y_w_hat(4.5), '\n', sep='')
+		(beta_w[1] + 2*beta_w[2]*(4.5) + 3*beta_w[3]*(4.5**2)), '\n', sep='')
 
 plt.plot(t, y_w_e, c='m', lw=2, ls='--', alpha=0.35, label='y_w_e')
 
