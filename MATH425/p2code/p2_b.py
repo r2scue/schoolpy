@@ -1,7 +1,5 @@
 ################################################
 ##### Kenny Kong MATH 425 Project 2 Part B #####
-### Christina Cai, Jake Li, Danny Lopez    #####
-### Jocelyn Padilla (Group 6)              #####
 
 
 import numpy as np 
@@ -65,6 +63,7 @@ u9, s9, vt9 = np.linalg.svd(a9)
 ### testing
 
 test_res = np.zeros(1000)
+stage_classified = np.zeros(1000)
 
 stage1_ct = 0
 for i in range(1000):
@@ -84,7 +83,7 @@ for i in range(1000):
 		test_res[i] = np.argmin(z)
 		stage1_ct += 1
 	else:
-
+		stage_classified[i] = 1
 		z[0] = np.linalg.norm(test[:,i]-np.matmul(u0[:,0:10], np.matmul(u0[:,0:10].T, test[:,i])))
 		z[1] = np.linalg.norm(test[:,i]-np.matmul(u1[:,0:10], np.matmul(u1[:,0:10].T, test[:,i])))
 		z[2] = np.linalg.norm(test[:,i]-np.matmul(u2[:,0:10], np.matmul(u2[:,0:10].T, test[:,i])))
@@ -95,41 +94,25 @@ for i in range(1000):
 		z[7] = np.linalg.norm(test[:,i]-np.matmul(u7[:,0:10], np.matmul(u7[:,0:10].T, test[:,i])))
 		z[8] = np.linalg.norm(test[:,i]-np.matmul(u8[:,0:10], np.matmul(u8[:,0:10].T, test[:,i])))
 		z[9] = np.linalg.norm(test[:,i]-np.matmul(u9[:,0:10], np.matmul(u9[:,0:10].T, test[:,i])))
+		test_res[i] = np.argmin(z)
 
 stage2_ct = 1000-stage1_ct
-print('stage 1 (residual < 3):', stage1_ct, '\nstage 2 (residual >= 3)', stage2_ct)
+print('stage 1 (residual < 3) classifications:', stage1_ct, '\nstage 2 (residual >= 3) classifications', stage2_ct)
+print('overall success rate: ', np.sum(test_res==test_lab) / 10, '%')
+print('stage 1 classifier success rate: ', 
+	 100*(np.sum(test_res[stage_classified==0]==test_lab[stage_classified==0])/stage1_ct), '%')
+print('stage 2 classifier success rate: ', 
+	 100*(np.sum(test_res[stage_classified==1]==test_lab[stage_classified==1])/stage2_ct), '%')
 
 ''' residual < 3 use 1 basis vector: console output for print call
 
 Kennys-MacBook-Pro:p2code rescue$ python3 p2_b.py
-stage 1 (residual < 3): 89 
-stage 2 (residual >= 3) 911
+stage 1 (residual < 3) classifications: 89 
+stage 2 (residual >= 3) classifications 911
+overall success rate:  94.0 %
+stage 1 classifier success rate:  95.50561797752809 %
+stage 2 classifier success rate:  93.85290889132821 %
 
 '''
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
