@@ -1,5 +1,7 @@
 ################################################
 ##### Kenny Kong MATH 425 Project 2 Part B #####
+### Christina Cai, Jake Li, Danny Lopez    #####
+### Jocelyn Padilla (Group 6)              #####
 
 
 import numpy as np 
