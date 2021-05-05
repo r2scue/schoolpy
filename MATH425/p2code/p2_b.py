@@ -78,8 +78,9 @@ for i in range(1000):
 	z[7] = np.linalg.norm(test[:,i]-u7[:,0]*np.matmul(u7[:,0].T, test[:,i]))
 	z[8] = np.linalg.norm(test[:,i]-u8[:,0]*np.matmul(u8[:,0].T, test[:,i]))
 	z[9] = np.linalg.norm(test[:,i]-u9[:,0]*np.matmul(u9[:,0].T, test[:,i]))
-
-	if z.min() < 3:
+	
+	zs = np.sort(z)
+	if zs[0] < 3.5 and zs[1]-zs[0] > 0.3:
 		test_res[i] = np.argmin(z)
 		stage1_ct += 1
 	else:
@@ -97,7 +98,8 @@ for i in range(1000):
 		test_res[i] = np.argmin(z)
 
 stage2_ct = 1000-stage1_ct
-print('stage 1 (residual < 3) classifications:', stage1_ct, '\nstage 2 (residual >= 3) classifications', stage2_ct)
+print('stage 1 (stage 1 min. residual significant) classifications:', stage1_ct, 
+		'\nstage 2 (stage 1 min. residual not significant) classifications', stage2_ct)
 print('overall success rate: ', np.sum(test_res==test_lab) / 10, '%')
 print('stage 1 classifier success rate: ', 
 	 100*(np.sum(test_res[stage_classified==0]==test_lab[stage_classified==0])/stage1_ct), '%')
