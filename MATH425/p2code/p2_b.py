@@ -80,7 +80,7 @@ for i in range(1000):
 	z[9] = np.linalg.norm(test[:,i]-u9[:,0]*np.matmul(u9[:,0].T, test[:,i]))
 	
 	zs = np.sort(z)
-	if zs[0] < 3.5 and zs[1]-zs[0] > 0.3:
+	if zs[1]-zs[0] > 1:
 		test_res[i] = np.argmin(z)
 		stage1_ct += 1
 	else:
@@ -108,12 +108,11 @@ print('stage 2 classifier success rate: ',
 
 ''' residual < 3 use 1 basis vector: console output for print call
 
-Kennys-MacBook-Pro:p2code rescue$ python3 p2_b.py
-stage 1 (residual < 3) classifications: 89 
-stage 2 (residual >= 3) classifications 911
-overall success rate:  94.0 %
-stage 1 classifier success rate:  95.50561797752809 %
-stage 2 classifier success rate:  93.85290889132821 %
+stage 1 (stage 1 min. residual significant) classifications: 209 
+stage 2 (stage 1 min. residual not significant) classifications 791
+overall success rate:  94.4 %
+stage 1 classifier success rate:  100.0 %
+stage 2 classifier success rate:  92.92035398230088 %
 
 '''
 
