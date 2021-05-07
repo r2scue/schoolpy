@@ -36,7 +36,7 @@ a9 = train[:,3600:4000]
 
 
 
-## classifier training and testing
+## classifier training 
 
 a0_bar = a0 - np.tile((1 / 400) * a0.sum(axis=1), (400, 1)).T
 a1_bar = a1 - np.tile((1 / 400) * a1.sum(axis=1), (400, 1)).T
@@ -84,18 +84,30 @@ for i in range(1000):
 		test_res[i] = np.argmin(z)
 		stage1_ct += 1
 	else:
+		z2 = np.zeros(40)
 		stage_classified[i] = 1
-		z[0] = np.linalg.norm(test[:,i]-np.matmul(u0[:,0:10], np.matmul(u0[:,0:10].T, test[:,i])))
-		z[1] = np.linalg.norm(test[:,i]-np.matmul(u1[:,0:10], np.matmul(u1[:,0:10].T, test[:,i])))
-		z[2] = np.linalg.norm(test[:,i]-np.matmul(u2[:,0:10], np.matmul(u2[:,0:10].T, test[:,i])))
-		z[3] = np.linalg.norm(test[:,i]-np.matmul(u3[:,0:10], np.matmul(u3[:,0:10].T, test[:,i])))
-		z[4] = np.linalg.norm(test[:,i]-np.matmul(u4[:,0:10], np.matmul(u4[:,0:10].T, test[:,i])))
-		z[5] = np.linalg.norm(test[:,i]-np.matmul(u5[:,0:10], np.matmul(u5[:,0:10].T, test[:,i])))
-		z[6] = np.linalg.norm(test[:,i]-np.matmul(u6[:,0:10], np.matmul(u6[:,0:10].T, test[:,i])))
-		z[7] = np.linalg.norm(test[:,i]-np.matmul(u7[:,0:10], np.matmul(u7[:,0:10].T, test[:,i])))
-		z[8] = np.linalg.norm(test[:,i]-np.matmul(u8[:,0:10], np.matmul(u8[:,0:10].T, test[:,i])))
-		z[9] = np.linalg.norm(test[:,i]-np.matmul(u9[:,0:10], np.matmul(u9[:,0:10].T, test[:,i])))
-		test_res[i] = np.argmin(z)
+		for j in range(4):
+			z2[0+10*j] = np.linalg.norm(test[:,i]-np.matmul(u0[:,0:5*(j+1)], 
+										np.matmul(u0[:,0:5*(j+1)].T, test[:,i])))
+			z2[1+10*j] = np.linalg.norm(test[:,i]-np.matmul(u1[:,0:5*(j+1)], 
+										np.matmul(u1[:,0:5*(j+1)].T, test[:,i])))
+			z2[2+10*j] = np.linalg.norm(test[:,i]-np.matmul(u2[:,0:5*(j+1)], 
+										np.matmul(u2[:,0:5*(j+1)].T, test[:,i])))
+			z2[3+10*j] = np.linalg.norm(test[:,i]-np.matmul(u3[:,0:5*(j+1)], 
+										np.matmul(u3[:,0:5*(j+1)].T, test[:,i])))
+			z2[4+10*j] = np.linalg.norm(test[:,i]-np.matmul(u4[:,0:5*(j+1)], 
+										np.matmul(u4[:,0:5*(j+1)].T, test[:,i])))
+			z2[5+10*j] = np.linalg.norm(test[:,i]-np.matmul(u5[:,0:5*(j+1)], 
+										np.matmul(u5[:,0:5*(j+1)].T, test[:,i])))
+			z2[6+10*j] = np.linalg.norm(test[:,i]-np.matmul(u6[:,0:5*(j+1)], 
+										np.matmul(u6[:,0:5*(j+1)].T, test[:,i])))
+			z2[7+10*j] = np.linalg.norm(test[:,i]-np.matmul(u7[:,0:5*(j+1)], 
+										np.matmul(u7[:,0:5*(j+1)].T, test[:,i])))
+			z2[8+10*j] = np.linalg.norm(test[:,i]-np.matmul(u8[:,0:5*(j+1)], 
+										np.matmul(u8[:,0:5*(j+1)].T, test[:,i])))
+			z2[9+10*j] = np.linalg.norm(test[:,i]-np.matmul(u9[:,0:5*(j+1)], 
+										np.matmul(u9[:,0:5*(j+1)].T, test[:,i])))
+		test_res[i] = np.argmin(z2) % 10
 
 stage2_ct = 1000-stage1_ct
 print('stage 1 (stage 1 min. residual significant) classifications:', stage1_ct, 
@@ -110,10 +122,12 @@ print('stage 2 classifier success rate: ',
 
 stage 1 (stage 1 min. residual significant) classifications: 209 
 stage 2 (stage 1 min. residual not significant) classifications 791
-overall success rate:  94.4 %
+overall success rate:  95.7 %
 stage 1 classifier success rate:  100.0 %
-stage 2 classifier success rate:  92.92035398230088 %
+stage 2 classifier success rate:  94.56384323640961 %
 
 '''
+
+
 
 
